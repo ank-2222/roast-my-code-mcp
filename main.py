@@ -1,4 +1,5 @@
 import sys
+import os
 from pathlib import Path
 
 # Fix module resolution when launched via absolute path by MCP
@@ -16,4 +17,9 @@ register_resources(mcp)
 register_prompts(mcp)
 
 if __name__ == "__main__":
-    mcp.run(transport="stdio")
+    transport = os.environ.get("TRANSPORT", "stdio")
+    if transport == "sse":
+        port = int(os.environ.get("PORT", 8000))
+        mcp.run(transport="sse", host="0.0.0.0", port=port)
+    else:
+        mcp.run(transport="stdio")

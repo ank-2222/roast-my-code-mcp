@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: roast-my-code
+    runtime: python
+    buildCommand: pip install uv && uv sync --frozen
+    startCommand: python main.py
+    envVars:
+      - key: TRANSPORT
+        value: sse
