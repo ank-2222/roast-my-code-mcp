@@ -12,14 +12,16 @@ from src.prompts import register_prompts
 
 transport = os.environ.get("TRANSPORT", "stdio")
 
-if transport == "streamable-http":
-    mcp = FastMCP("roast-my-code", host="0.0.0.0", port=int(os.environ.get("PORT", 8000)))
-else:
-    mcp = FastMCP("roast-my-code")
+mcp = FastMCP("roast-my-code")
 
 register_tools(mcp)
 register_resources(mcp)
 register_prompts(mcp)
 
 if __name__ == "__main__":
-    mcp.run(transport=transport)
+    if transport == "streamable-http":
+        import uvicorn
+        port = int(os.environ.get("PORT", 8000))
+        uvicorn.run(mcp.streamable_http_app(), host="0.0.0.0", port=port)
+    else:
+        mcp.run(transport="stdio")
