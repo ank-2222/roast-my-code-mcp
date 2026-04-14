@@ -10,17 +10,16 @@ from src.tools import register_tools
 from src.resources import register_resources
 from src.prompts import register_prompts
 
-mcp = FastMCP("roast-my-code")
+transport = os.environ.get("TRANSPORT", "stdio")
+
+if transport == "streamable-http":
+    mcp = FastMCP("roast-my-code", host="0.0.0.0", port=int(os.environ.get("PORT", 8000)))
+else:
+    mcp = FastMCP("roast-my-code")
 
 register_tools(mcp)
 register_resources(mcp)
 register_prompts(mcp)
 
 if __name__ == "__main__":
-    transport = os.environ.get("TRANSPORT", "stdio")
-    if transport == "sse":
-        mcp.settings.host = "0.0.0.0"
-        mcp.settings.port = int(os.environ.get("PORT", 8000))
-        mcp.run(transport="sse")
-    else:
-        mcp.run(transport="stdio")
+    mcp.run(transport=transport)

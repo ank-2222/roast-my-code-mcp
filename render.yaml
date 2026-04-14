@@ -6,4 +6,4 @@ services:
     startCommand: python main.py
     envVars:
       - key: TRANSPORT
-        value: sse
+        value: streamable-http
