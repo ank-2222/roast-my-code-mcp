@@ -1,7 +1,6 @@
 import sys
 import os
 from pathlib import Path
-
 # Fix module resolution when launched via absolute path by MCP
 sys.path.insert(0, str(Path(__file__).parent))
 
@@ -12,7 +11,7 @@ from src.prompts import register_prompts
 
 transport = os.environ.get("TRANSPORT", "stdio")
 
-mcp = FastMCP("roast-my-code", allowed_hosts=["*"])
+mcp = FastMCP("roast-my-code")
 
 register_tools(mcp)
 register_resources(mcp)
