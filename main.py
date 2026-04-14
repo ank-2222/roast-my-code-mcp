@@ -12,7 +12,7 @@ from src.prompts import register_prompts
 
 transport = os.environ.get("TRANSPORT", "stdio")
 
-mcp = FastMCP("roast-my-code")
+mcp = FastMCP("roast-my-code", allowed_hosts=["*"])
 
 register_tools(mcp)
 register_resources(mcp)
