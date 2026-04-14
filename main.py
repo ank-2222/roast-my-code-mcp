@@ -19,7 +19,8 @@ register_prompts(mcp)
 if __name__ == "__main__":
     transport = os.environ.get("TRANSPORT", "stdio")
     if transport == "sse":
-        port = int(os.environ.get("PORT", 8000))
-        mcp.run(transport="sse", host="0.0.0.0", port=port)
+        mcp.settings.host = "0.0.0.0"
+        mcp.settings.port = int(os.environ.get("PORT", 8000))
+        mcp.run(transport="sse")
     else:
         mcp.run(transport="stdio")
