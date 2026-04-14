@@ -1,0 +1,9 @@
+[project]
+name = "roast-my-code"
+version = "0.1.0"
+description = "An MCP server that roasts your code with savage wit"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "mcp[cli]>=1.27.0",
+]
